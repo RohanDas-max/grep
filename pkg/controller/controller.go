@@ -1,27 +1,22 @@
 package controller
 
 import (
-	"flag"
 	"fmt"
 
 	"github.com/rohandas-max/grep/pkg/handler"
+	"github.com/rohandas-max/grep/pkg/utils"
 )
 
-func Controller() error {
-	flag.Parse()
-	a := flag.Arg(0)
-	f := flag.Arg(1)
-
-	data, err := handler.SearchInAFile(f, a)
-	if err != nil {
-		return err
-	}
-	for i := range data {
-		if data[i] == "" {
-			i++
-		} else {
-			fmt.Println(data[i])
+func Controller(args []string) error {
+	switch {
+	case len(args) <= 2:
+		data, err := handler.SearchInAFile(string(args[1]), string(args[0]))
+		if err != nil {
+			return err
 		}
+		utils.PrintLine(data)
+	default:
+		fmt.Println("oops! wrong input")
 	}
 	return nil
 }

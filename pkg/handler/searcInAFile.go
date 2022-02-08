@@ -5,14 +5,13 @@ import (
 )
 
 func SearchInAFile(f, a string) ([]string, error) {
-
-	datas, err := utils.ReadFile(f)
+	data, err := utils.ReadFile(f)
 	if err != nil {
 		return []string{""}, err
 	}
 	var res []string
-	for _, data := range datas {
-		res = append(res, utils.IsMatched(data, a))
+	for _, dt := range data {
+		res = append(res, utils.IsMatched(dt, a))
 	}
 
 	return res, nil
