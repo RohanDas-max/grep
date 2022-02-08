@@ -9,12 +9,19 @@ import (
 
 func Controller() error {
 	flag.Parse()
-	arg := flag.Arg(0)
-	fn := flag.Arg(1)
-	data, err := handler.SearchInAFile(fn, arg)
+	a := flag.Arg(0)
+	f := flag.Arg(1)
+
+	data, err := handler.SearchInAFile(f, a)
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%s\n", data)
+	for i := range data {
+		if data[i] == "" {
+			i++
+		} else {
+			fmt.Println(data[i])
+		}
+	}
 	return nil
 }

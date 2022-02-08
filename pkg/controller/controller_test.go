@@ -8,7 +8,7 @@ func TestController(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:    "pass",
+			name:    "anything",
 			wantErr: true,
 		},
 	}

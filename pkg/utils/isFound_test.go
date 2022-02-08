@@ -1,4 +1,4 @@
-package reusablemethods
+package utils
 
 import "testing"
 
