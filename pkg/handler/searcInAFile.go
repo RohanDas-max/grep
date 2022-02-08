@@ -11,7 +11,7 @@ func SearchInAFile(f, a string) ([]string, error) {
 	}
 	var res []string
 	for _, dt := range data {
-		res = append(res, utils.IsMatched(dt, a))
+		res = append(res, utils.IsFound(dt, a))
 	}
 
 	return res, nil

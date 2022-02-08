@@ -2,7 +2,7 @@ package utils
 
 import "testing"
 
-func TestIsMatched(t *testing.T) {
+func TestIsFound(t *testing.T) {
 	type args struct {
 		text string
 		arg  string
@@ -30,7 +30,7 @@ func TestIsMatched(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := IsMatched(tt.args.text, tt.args.arg); got != tt.want {
+			if got := IsFound(tt.args.text, tt.args.arg); got != tt.want {
 				t.Errorf("IsMatched() = %v, want %v", got, tt.want)
 			}
 		})
