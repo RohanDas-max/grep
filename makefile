@@ -1,3 +1,3 @@
 build:
-	go build cmd/mygrep/mygrep.go
+	go build -o mygrep cmd/cli/main.go
 	
