@@ -1,9 +1,7 @@
 # Grep Cli
-   ### to run use `make build` then you can use `./mygrep [string] [filename]`
+   ### to run use `make build` then you can use `./mygrep [string] [filename]`. This command will check if the string is available in the file if yes then the line will be Printed otherwise it will abort
 
  ```  eg: ./mygrep "hello" test.txt```
-
-    This command will check if the string is available in the file if yes then the line will be Printed otherwise it will abort
 
   ###  To search in a directory `./mygrep [string_to_search] [directory]`
  ``` eg: ./mygrep "hello" dir ```
