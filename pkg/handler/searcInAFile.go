@@ -8,11 +8,12 @@ func SearchInAFile(f, a string) ([]string, error) {
 	data, err := utils.ReadFile(f)
 	if err != nil {
 		return []string{""}, err
-	}
-	var res []string
-	for _, dt := range data {
-		res = append(res, utils.IsFound(dt, a))
+	} else {
+		var res []string
+		for _, dt := range data {
+			res = append(res, utils.IsFound(dt, a))
+		}
+		return res, nil
 	}
 
-	return res, nil
 }

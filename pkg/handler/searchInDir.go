@@ -8,9 +8,8 @@ import (
 	"github.com/rohandas-max/grep/pkg/utils"
 )
 
-func SearchInDir(f string) ([]string, error) {
+func SearchInDir(f, a string) ([]string, error) {
 	var res []string
-
 	if err := filepath.Walk(f, func(path string, info fs.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -18,7 +17,7 @@ func SearchInDir(f string) ([]string, error) {
 			data, _ := utils.ReadFile(path)
 			for _, data := range data {
 				if data != "" {
-					s := fmt.Sprintln(path, ":", utils.IsFound(data, "hello"))
+					s := fmt.Sprintf("%s:%s", path, utils.IsFound(data, a))
 					res = append(res, s)
 				}
 			}
@@ -27,5 +26,6 @@ func SearchInDir(f string) ([]string, error) {
 	}); err != nil {
 		return []string{""}, err
 	}
+
 	return res, nil
 }

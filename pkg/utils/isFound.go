@@ -7,6 +7,7 @@ import (
 func IsFound(txt, a string) string {
 	if strings.Contains(txt, a) {
 		return txt
+	} else {
+		return ""
 	}
-	return ""
 }

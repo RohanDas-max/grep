@@ -19,7 +19,8 @@ func TestIsFound(t *testing.T) {
 				arg:  "hello",
 			},
 			want: "helloworld",
-		}, {
+		},
+		{
 			name: "matched",
 			args: args{
 				text: "helloworld",

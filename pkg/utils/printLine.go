@@ -1,17 +1,21 @@
 package utils
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
-func PrintLine(s []string, signal int) {
-	// sp := "\n"
-	for i := range s {
-		if s[i] == "" {
-			i++
-		} else if signal > 0 {
-			fmt.Printf("%v\n", s[i])
-		} else {
-			fmt.Printf("%v", s[i])
-
+func PrintLine(s []string) error {
+	if len(s) < 1 {
+		return errors.New("slice is empty nothing to print")
+	} else {
+		for i := range s {
+			if s[i] == "" {
+				i++
+			} else {
+				fmt.Printf("%v\n", s[i])
+			}
 		}
+		return nil
 	}
 }

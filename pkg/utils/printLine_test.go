@@ -4,30 +4,33 @@ import "testing"
 
 func TestPrintLine(t *testing.T) {
 	type args struct {
-		s      []string
-		signal int
+		s []string
 	}
 	tests := []struct {
-		name string
-		args args
+		name    string
+		args    args
+		wantErr bool
 	}{
 		{
-			name: "",
+			name: "pass",
 			args: args{
-				s:      []string{"Hello world", "hello world 2"},
-				signal: 0,
+				s: []string{"hello", "world"},
 			},
-		}, {
-			name: "",
+			wantErr: false,
+		},
+		{
+			name: "fail",
 			args: args{
-				s:      []string{"Hello world", "hello world 2"},
-				signal: 1,
+				s: []string{},
 			},
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			PrintLine(tt.args.s, tt.args.signal)
+			if err := PrintLine(tt.args.s); (err != nil) != tt.wantErr {
+				t.Errorf("PrintLine() error = %v, wantErr %v", err, tt.wantErr)
+			}
 		})
 	}
 }

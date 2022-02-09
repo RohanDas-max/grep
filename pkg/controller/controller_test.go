@@ -12,33 +12,44 @@ func TestController(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "pass",
+			name: "pass1",
 			args: args{
 				args: []string{"hello", "../../dir"},
 			},
 			wantErr: false,
-		}, {
-			name: "fail",
-			args: args{
-				args: []string{"hello", "dir"},
-			},
-			wantErr: true,
-		}, {
-			name: "pass",
+		},
+		{
+			name: "pass2",
 			args: args{
 				args: []string{"hello", "../../test.txt"},
 			},
 			wantErr: false,
-		}, {
-			name: "pass",
+		},
+		{
+			name: "pass3",
 			args: args{
 				args: []string{"hello"},
 			},
 			wantErr: false,
-		}, {
-			name: "pass",
+		},
+		{
+			name: "fail1",
+			args: args{
+				args: []string{"hello", "dir"},
+			},
+			wantErr: true,
+		},
+		{
+			name: "fail2",
 			args: args{
 				args: []string{"hello", "any", "any"},
+			},
+			wantErr: true,
+		},
+		{
+			name: "fail3",
+			args: args{
+				args: []string{""},
 			},
 			wantErr: true,
 		},
