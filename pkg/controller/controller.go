@@ -6,42 +6,30 @@ import (
 	"strings"
 
 	"github.com/rohandas-max/grep/pkg/handler"
-	"github.com/rohandas-max/grep/pkg/utils"
 )
 
-func Controller(args []string, i bool) error {
+func Controller(args []string, iFlag bool) ([]string, error) {
+	var res []string
 	a := string(args[0])
-	if i {
+	if iFlag {
 		a = strings.ToLower(args[0])
 	}
-	switch {
-	case len(args) < 1:
-		return errors.New("please add some option or command")
-	case len(args) <= 1:
-		if err := handler.SearchInStdin(a); err != nil {
-			return err
-		}
-	case len(args) <= 2:
+
+	switch len(args) {
+	case 1:
+		return res, handler.SearchInStdin(a)
+	case 2:
 		fs, err := os.Stat(args[1])
 		if err != nil {
-			return err
+			return res, err
 		}
 		if fs.IsDir() {
-			data, err := handler.SearchInDir(args[1], a)
-			if err != nil {
-				return errors.New("invalid folder name")
-			}
-			utils.PrintLine(data)
+			return handler.SearchInDir(args[1], a)
 		} else if !fs.IsDir() {
-			data, err := handler.SearchInAFile(string(args[1]), a)
-			if err != nil {
-				return errors.New("invalid file name")
-
-			}
-			utils.PrintLine(data)
+			return handler.SearchInAFile(string(args[1]), a)
 		}
 	default:
-		return errors.New("oops! wrong command")
+		return res, errors.New("oops! wrong command")
 	}
-	return nil
+	return res, nil
 }
