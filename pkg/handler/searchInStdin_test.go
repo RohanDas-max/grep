@@ -17,6 +17,12 @@ func TestSearchInStdin(t *testing.T) {
 				arg: "hello",
 			},
 			wantErr: false,
+		}, {
+			name: "fail",
+			args: args{
+				arg: "",
+			},
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
