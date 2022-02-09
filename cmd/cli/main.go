@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"log"
 
 	"github.com/rohandas-max/grep/pkg/controller"
 )
@@ -12,10 +12,7 @@ func main() {
 	args := flag.Args()
 	err := controller.Controller(args)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
-	func() {
-		active := recover()
-		fmt.Printf("%v", active)
-	}()
+
 }

@@ -4,27 +4,30 @@ import "testing"
 
 func TestPrintLine(t *testing.T) {
 	type args struct {
-		data []string
+		s      []string
+		signal int
 	}
 	tests := []struct {
 		name string
 		args args
 	}{
 		{
-			name: "1",
+			name: "",
 			args: args{
-				data: []string{"hello world", "not welcome"},
+				s:      []string{"Hello world", "hello world 2"},
+				signal: 0,
 			},
 		}, {
-			name: "1",
+			name: "",
 			args: args{
-				data: []string{""},
+				s:      []string{"Hello world", "hello world 2"},
+				signal: 1,
 			},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			PrintLine(tt.args.data)
+			PrintLine(tt.args.s, tt.args.signal)
 		})
 	}
 }
