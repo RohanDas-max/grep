@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"io/fs"
 	"path/filepath"
 
@@ -15,16 +14,11 @@ func SearchInDir(f, a string) ([]string, error) {
 			return err
 		} else {
 			data, _ := utils.ReadFile(path)
-			for _, data := range data {
-				if data != "" {
-					s := fmt.Sprintf("%s:%s", path, utils.IsFound(data, a))
-					res = append(res, s)
-				}
-			}
+			res = utils.Search(data, a, path, res)
 			return nil
 		}
 	}); err != nil {
-		return []string{""}, err
+		return res, err
 	}
 
 	return res, nil
