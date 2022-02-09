@@ -8,9 +8,10 @@ import (
 )
 
 func main() {
+	i := flag.Bool("i", false, "option to search in case-insensitive manner")
 	flag.Parse()
 	args := flag.Args()
-	err := controller.Controller(args)
+	err := controller.Controller(args, *i)
 	if err != nil {
 		log.Fatal(err)
 	}
