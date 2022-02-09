@@ -20,8 +20,9 @@ func SearchInStdin(arg string) error {
 			} else if err != nil {
 				return err
 			} else {
-				res := utils.IsFound(text, arg)
-				fmt.Printf("%s", res)
+				if res, found := utils.IsFound(text, arg); found {
+					fmt.Printf("%s", res)
+				}
 			}
 		}
 	} else {
