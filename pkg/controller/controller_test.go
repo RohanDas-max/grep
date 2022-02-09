@@ -14,13 +14,31 @@ func TestController(t *testing.T) {
 		{
 			name: "pass",
 			args: args{
-				args: []string{"main", "../../cmd/mygrep/mygrep.go"},
+				args: []string{"hello", "../../dir"},
 			},
 			wantErr: false,
 		}, {
 			name: "fail",
 			args: args{
-				args: []string{"main", "test.txt"},
+				args: []string{"hello", "dir"},
+			},
+			wantErr: true,
+		}, {
+			name: "pass",
+			args: args{
+				args: []string{"hello", "../../test.txt"},
+			},
+			wantErr: false,
+		}, {
+			name: "pass",
+			args: args{
+				args: []string{"hello"},
+			},
+			wantErr: false,
+		}, {
+			name: "pass",
+			args: args{
+				args: []string{"hello", "any", "any"},
 			},
 			wantErr: true,
 		},
