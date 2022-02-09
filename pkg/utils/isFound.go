@@ -4,10 +4,10 @@ import (
 	"strings"
 )
 
-func IsFound(txt, a string) string {
+func IsFound(txt, a string) (string, bool) {
 	if strings.Contains(txt, a) {
-		return txt
+		return txt, true
 	} else {
-		return ""
+		return "", false
 	}
 }
