@@ -9,12 +9,17 @@ import (
 
 func SearchInDir(f, a string) ([]string, error) {
 	var res []string
+
 	if err := filepath.Walk(f, func(path string, info fs.FileInfo, err error) error {
 		if err != nil {
 			return err
 		} else {
 			data, _ := utils.ReadFile(path)
-			res = utils.Search(data, a, path, res)
+			// fmt.Println(path, data)
+			s, _ := utils.Search(data, a, path, false)
+			// fmt.Println(s)
+			res = append(res, s...)
+
 			return nil
 		}
 	}); err != nil {

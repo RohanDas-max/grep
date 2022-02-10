@@ -5,11 +5,12 @@ import (
 )
 
 func SearchInAFile(f, a string) ([]string, error) {
-	var res []string
 	data, err := utils.ReadFile(f)
+	// fmt.Println(data)
 	if err != nil {
 		return []string{}, err
 	} else {
-		return utils.Search(data, a, "", res), nil
+		s, _ := utils.Search(data, a, "", false)
+		return s, nil
 	}
 }
