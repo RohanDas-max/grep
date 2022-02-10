@@ -1,26 +1,24 @@
 package utils
 
-import "fmt"
+func Search(data []string, a, path string, stdin bool, c map[string]bool, cf map[string]int) ([]string, string, int) {
+	cInsesitive := c["i"]
+	cCount := c["c"]
 
-func Search(data []string, a, path string, stdin bool) ([]string, string) {
-	res := []string{}
-	var s string
-	if !stdin {
-		for _, line := range data {
-			if v, found := IsFound(line, a); found {
-				if path != "" {
-					s := fmt.Sprintf("%v:%v", path, v)
-					res = append(res, s)
-				} else {
-					res = append(res, v)
-				}
-			}
-		}
-		return res, s
-	} else if stdin {
-		if v, found := IsFound(data[0], a); found {
-			return res, v
-		}
+	// cFA := cf["A"]
+	// cFB := cf["B"]
+	// cFC := cf["C"]
+
+	if cInsesitive && cCount {
+		reS, s := SearchCaseInsensitive(data, a, path, stdin)
+		return []string{}, "", count(reS, s)
+	} else if cInsesitive {
+		reS, s := SearchCaseInsensitive(data, a, path, stdin)
+		return reS, s, 0
+	} else if cCount {
+		reS, s := SearchCaseSensitive(data, a, path, stdin)
+		return []string{}, "", count(reS, s)
+	} else {
+		reS, s := SearchCaseSensitive(data, a, path, stdin)
+		return reS, s, 0
 	}
-	return res, s
 }
