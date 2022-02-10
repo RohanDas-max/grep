@@ -3,7 +3,7 @@ package utils
 import "fmt"
 
 func Search(data []string, a, path string, stdin bool) ([]string, string) {
-	var res []string
+	res := []string{}
 	var s string
 	if !stdin {
 		for _, line := range data {

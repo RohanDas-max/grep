@@ -20,7 +20,7 @@ func TestReadFile(t *testing.T) {
 			args: args{
 				filename: "test.txt",
 			},
-			want:    []string{""},
+			want:    []string{},
 			wantErr: true,
 		}, {
 			name: "positive",
