@@ -4,13 +4,13 @@ import (
 	"github.com/rohandas-max/grep/pkg/utils"
 )
 
-func SearchInAFile(f, a string) ([]string, error) {
+func SearchInAFile(f, a string, c map[string]bool, cf map[string]int) ([]string, int, error) {
 	data, err := utils.ReadFile(f)
 	// fmt.Println(data)
 	if err != nil {
-		return []string{}, err
+		return []string{}, 0, err
 	} else {
-		s, _ := utils.Search(data, a, "", false)
-		return s, nil
+		s, _, count := utils.Search(data, a, "", false, c, cf)
+		return s, count, nil
 	}
 }

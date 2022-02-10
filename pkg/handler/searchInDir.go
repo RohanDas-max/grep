@@ -7,24 +7,24 @@ import (
 	"github.com/rohandas-max/grep/pkg/utils"
 )
 
-func SearchInDir(f, a string) ([]string, error) {
-	var res []string
-
+func SearchInDir(f, a string, c map[string]bool, cf map[string]int) ([]string, int, error) {
+	var res = []string{}
+	var num int
 	if err := filepath.Walk(f, func(path string, info fs.FileInfo, err error) error {
 		if err != nil {
 			return err
 		} else {
+			var s []string
+			var count int
 			data, _ := utils.ReadFile(path)
-			// fmt.Println(path, data)
-			s, _ := utils.Search(data, a, path, false)
-			// fmt.Println(s)
+			s, _, count = utils.Search(data, a, path, false, c, cf)
+			num += count
 			res = append(res, s...)
-
 			return nil
 		}
 	}); err != nil {
-		return res, err
+		return []string{}, 0, err
 	}
 
-	return res, nil
+	return res, num, nil
 }

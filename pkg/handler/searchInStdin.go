@@ -10,7 +10,8 @@ import (
 	"github.com/rohandas-max/grep/pkg/utils"
 )
 
-func SearchInStdin(arg string) error {
+func SearchInStdin(arg string, c map[string]bool, cf map[string]int) error {
+
 	if arg != "" {
 		reader := bufio.NewReader(os.Stdin)
 		for {
@@ -21,8 +22,12 @@ func SearchInStdin(arg string) error {
 				return err
 			} else {
 				var data = []string{text}
-				_, res := (utils.Search(data, arg, "", true))
-				fmt.Printf("%s", res)
+				_, res, count := (utils.Search(data, arg, "", true, c, cf))
+				if count > 0 {
+					fmt.Printf("%d", count)
+				} else {
+					fmt.Printf("%s", res)
+				}
 			}
 		}
 	} else {
