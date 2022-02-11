@@ -11,7 +11,7 @@ import (
 )
 
 func SearchInStdin(arg string, c map[string]bool, cf map[string]int) error {
-
+	var num int
 	if arg != "" {
 		reader := bufio.NewReader(os.Stdin)
 		for {
@@ -24,12 +24,13 @@ func SearchInStdin(arg string, c map[string]bool, cf map[string]int) error {
 				var data = []string{text}
 				_, res, count := (utils.Search(data, arg, "", true, c, cf))
 				if count > 0 {
-					fmt.Printf("%d", count)
+					num += count
 				} else {
 					fmt.Printf("%s", res)
 				}
 			}
 		}
+		fmt.Printf("%d\n", num)
 	} else {
 		return errors.New("empty argument")
 	}
