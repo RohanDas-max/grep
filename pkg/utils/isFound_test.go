@@ -14,15 +14,16 @@ func TestIsFound(t *testing.T) {
 		want1 bool
 	}{
 		{
-			name: "",
+			name: "pass1",
 			args: args{
 				txt: "Hello World",
 				a:   "hello",
 			},
 			want:  "",
 			want1: false,
-		}, {
-			name: "",
+		},
+		{
+			name: "pass2",
 			args: args{
 				txt: "Hello World",
 				a:   "Hello",
