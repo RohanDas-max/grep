@@ -20,7 +20,7 @@ func TestSearchInAFile(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "",
+			name: "pass 1",
 			args: args{
 				f: "../../test1.txt",
 				a: "hello",
@@ -35,7 +35,7 @@ func TestSearchInAFile(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "",
+			name: "pass 2",
 			args: args{
 				f: "../../test1.txt",
 				a: "hello",
@@ -45,7 +45,7 @@ func TestSearchInAFile(t *testing.T) {
 				},
 				cf: map[string]int{},
 			},
-			want:    []string{"hello world"},
+			want:    []string{},
 			want1:   1,
 			wantErr: false,
 		},

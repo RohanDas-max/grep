@@ -20,7 +20,7 @@ func TestSearchInDir(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "pass1",
+			name: "pass with i/c flag",
 			args: args{
 				f:  "../../dir",
 				a:  "hello",
@@ -31,24 +31,19 @@ func TestSearchInDir(t *testing.T) {
 			want1:   5,
 			wantErr: false,
 		}, {
-			name: "pass2",
+			name: "pass with c flag",
 			args: args{
 				f:  "../../dir",
 				a:  "hello",
 				c:  map[string]bool{"i": false, "c": true},
 				cf: map[string]int{},
 			},
-			want: []string{
-				"../../dir/dir2/test.txt:this is a test file in dir2 hello world",
-				"../../dir/test.txt:hello world",
-				"../../dir/test.txt:hello world also from test.txt",
-				"../../dir/test1.txt:hello world 1",
-			},
+			want:    []string{},
 			want1:   4,
 			wantErr: false,
 		},
 		{
-			name: "pass2",
+			name: "pass with i flag",
 			args: args{
 				f:  "../../dir",
 				a:  "hello",
@@ -64,6 +59,63 @@ func TestSearchInDir(t *testing.T) {
 			},
 			want1:   0,
 			wantErr: false,
+		},
+		{
+			name: "pass without flags",
+			args: args{
+				f:  "../../dir",
+				a:  "hello",
+				c:  map[string]bool{"i": false, "c": false},
+				cf: map[string]int{},
+			},
+			want: []string{
+				"../../dir/dir2/test.txt:this is a test file in dir2 hello world",
+				"../../dir/test.txt:hello world",
+				"../../dir/test.txt:hello world also from test.txt",
+				"../../dir/test1.txt:hello world 1",
+			},
+			want1:   0,
+			wantErr: false,
+		},
+		{
+			name: "fail without flags",
+			args: args{
+				f:  "dir",
+				a:  "hello",
+				c:  map[string]bool{"i": false, "c": false},
+				cf: map[string]int{},
+			},
+			want:    []string{},
+			want1:   0,
+			wantErr: true,
+		},
+		{
+			name: "fail with flags",
+			args: args{
+				f:  "dir",
+				a:  "hello",
+				c:  map[string]bool{"i": true, "c": true},
+				cf: map[string]int{},
+			},
+			want:    []string{},
+			want1:   0,
+			wantErr: true,
+		},
+		{
+			name: "pass with context flags",
+			args: args{
+				f: "dir",
+				a: "hello",
+				c: map[string]bool{"i": false, "c": false},
+				cf: map[string]int{
+					"A": 10,
+					"B": 10,
+					"C": 10,
+				},
+			},
+			want:    []string{},
+			want1:   0,
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {

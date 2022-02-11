@@ -14,7 +14,7 @@ func TestSearchInStdin(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "fail",
+			name: "fail with any arg",
 			args: args{
 				arg: "",
 				c:   map[string]bool{"i": true, "c": false},
@@ -23,7 +23,7 @@ func TestSearchInStdin(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "pass",
+			name: "pass with i flag",
 			args: args{
 				arg: "hello",
 				c:   map[string]bool{"i": true, "c": false},
@@ -32,7 +32,7 @@ func TestSearchInStdin(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "pass2",
+			name: "pass without flags",
 			args: args{
 				arg: "Hello",
 				c:   map[string]bool{"i": false, "c": false},
@@ -41,13 +41,31 @@ func TestSearchInStdin(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "pass3",
+			name: "pass with both flags",
+			args: args{
+				arg: "Hello",
+				c:   map[string]bool{"i": true, "c": true},
+				cf:  map[string]int{},
+			},
+			wantErr: false,
+		},
+		{
+			name: "pass with c flag",
 			args: args{
 				arg: "Hello",
 				c:   map[string]bool{"i": false, "c": true},
 				cf:  map[string]int{},
 			},
 			wantErr: false,
+		},
+		{
+			name: "fails with wrong argument",
+			args: args{
+				arg: "",
+				c:   map[string]bool{"i": false, "c": true},
+				cf:  map[string]int{},
+			},
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
