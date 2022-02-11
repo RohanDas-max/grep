@@ -87,7 +87,7 @@ func TestSearch(t *testing.T) {
 			},
 			want:  []string{},
 			want1: "",
-			want2: 11,
+			want2: 1,
 		},
 		{
 			name: "case Insensitive stdin",

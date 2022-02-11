@@ -15,18 +15,18 @@ func Test_count(t *testing.T) {
 		{
 			name: "pass",
 			args: args{
-				reS: []string{"Hello world"},
+				reS: []string{""},
 				s:   "hello",
 			},
-			want: 5,
+			want: 1,
 		},
 		{
 			name: "pass",
 			args: args{
-				reS: []string{"Hello world"},
+				reS: []string{"Hello world", "Hello world"},
 				s:   "",
 			},
-			want: 1,
+			want: 2,
 		},
 		{
 			name: "pass",
@@ -34,7 +34,7 @@ func Test_count(t *testing.T) {
 				reS: []string{""},
 				s:   "Hello",
 			},
-			want: 5,
+			want: 1,
 		},
 	}
 	for _, tt := range tests {
