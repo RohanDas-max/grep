@@ -9,13 +9,13 @@ import (
 	"os"
 )
 
-func SearcInStdin(arg string, c bool) {
+func SearcInStdin(arg string, optionC bool) {
 	reader := bufio.NewReader(os.Stdin)
 	var num int
 	for {
 		s, err := reader.ReadString('\n')
 		if err == io.EOF {
-			if c {
+			if optionC {
 				fmt.Println(num)
 			}
 			break
@@ -24,8 +24,8 @@ func SearcInStdin(arg string, c bool) {
 		} else {
 			var data = []string{s}
 			res := utils.Search(data, arg)
-			if res != nil && !c {
-				if !c {
+			if res != nil && !optionC {
+				if !optionC {
 					fmt.Printf("%v", res[0])
 				}
 				num++
@@ -35,14 +35,14 @@ func SearcInStdin(arg string, c bool) {
 
 }
 
-func SearcInStdinCaseIns(arg string, c bool) {
+func SearcInStdinCaseIns(arg string, optionC bool) {
 
 	reader := bufio.NewReader(os.Stdin)
 	var num int
 	for {
 		s, err := reader.ReadString('\n')
 		if err == io.EOF {
-			if c {
+			if optionC {
 				fmt.Println(num)
 			}
 			break
@@ -52,7 +52,7 @@ func SearcInStdinCaseIns(arg string, c bool) {
 			var data = []string{s}
 			res := utils.SearchCaseInsensitive(data, arg)
 			if res != nil {
-				if !c {
+				if !optionC {
 					fmt.Printf("%v", res[0])
 				}
 				num++
