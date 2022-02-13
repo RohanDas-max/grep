@@ -1,3 +1,3 @@
-module github.com/rohandas-max/grep
+module learn
 
 go 1.17
