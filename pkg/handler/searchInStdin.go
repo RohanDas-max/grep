@@ -2,37 +2,62 @@ package handler
 
 import (
 	"bufio"
-	"errors"
 	"fmt"
 	"io"
+	"learn/pkg/utils"
+	"log"
 	"os"
-
-	"github.com/rohandas-max/grep/pkg/utils"
 )
 
-func SearchInStdin(arg string, c map[string]bool, cf map[string]int) error {
+func SearcInStdin(arg string, c bool) {
+	reader := bufio.NewReader(os.Stdin)
 	var num int
-	if arg != "" {
-		reader := bufio.NewReader(os.Stdin)
-		for {
-			text, err := reader.ReadString('\n')
-			if err == io.EOF {
-				break
-			} else if err != nil {
-				return err
-			} else {
-				var data = []string{text}
-				_, res, count := (utils.Search(data, arg, "", true, c, cf))
-				if count > 0 {
-					num += count
-				} else {
-					fmt.Printf("%s", res)
+	for {
+		s, err := reader.ReadString('\n')
+		if err == io.EOF {
+			if c {
+				fmt.Println(num)
+			}
+			break
+		} else if err != nil {
+			log.Fatal(err)
+		} else {
+			var data = []string{s}
+			res := utils.Search(data, arg)
+			if res != nil && !c {
+				if !c {
+					fmt.Printf("%v", res[0])
 				}
+				num++
 			}
 		}
-		fmt.Printf("%d\n", num)
-	} else {
-		return errors.New("empty argument")
 	}
-	return nil
+
+}
+
+func SearcInStdinCaseIns(arg string, c bool) {
+
+	reader := bufio.NewReader(os.Stdin)
+	var num int
+	for {
+		s, err := reader.ReadString('\n')
+		if err == io.EOF {
+			if c {
+				fmt.Println(num)
+			}
+			break
+		} else if err != nil {
+			log.Fatal(err)
+		} else {
+			var data = []string{s}
+			res := utils.SearchCaseInsensitive(data, arg)
+			if res != nil {
+				if !c {
+					fmt.Printf("%v", res[0])
+				}
+				num++
+			}
+		}
+	}
+
 }

@@ -1,30 +1,52 @@
 package handler
 
 import (
+	"fmt"
 	"io/fs"
+	"learn/pkg/utils"
+	"log"
 	"path/filepath"
-
-	"github.com/rohandas-max/grep/pkg/utils"
 )
 
-func SearchInDir(f, a string, c map[string]bool, cf map[string]int) ([]string, int, error) {
-	var res = []string{}
-	var num int
-	if err := filepath.Walk(f, func(path string, info fs.FileInfo, err error) error {
+func SearcInDir(name, arg string) []string {
+	var result = []string{}
+	if err := filepath.Walk(name, func(path string, info fs.FileInfo, err error) error {
 		if err != nil {
 			return err
-		} else {
-			var s []string
-			var count int
-			data, _ := utils.ReadFile(path)
-			s, _, count = utils.Search(data, a, path, false, c, cf)
-			num += count
-			res = append(res, s...)
-			return nil
 		}
+		data := utils.Readfile(path)
+
+		var res []string
+		if v := utils.Search(data, arg); v != nil {
+			res = append(res, fmt.Sprint(path, ":", v))
+		}
+		result = append(result, res...)
+
+		return nil
 	}); err != nil {
-		return []string{}, 0, err
+		log.Fatal("in search in dir", err)
 	}
 
-	return res, num, nil
+	return result
+}
+
+func SearchInDirCaseIns(name, arg string) []string {
+	var result = []string{}
+	if err := filepath.Walk(name, func(path string, info fs.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		data := utils.Readfile(path)
+
+		var res []string
+		if v := utils.SearchCaseInsensitive(data, arg); v != nil {
+			res = append(res, fmt.Sprint(path, ":", v))
+		}
+		result = append(result, res...)
+
+		return nil
+	}); err != nil {
+		log.Fatal("in search in dir", err)
+	}
+	return result
 }

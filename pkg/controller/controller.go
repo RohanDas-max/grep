@@ -1,29 +1,50 @@
 package controller
 
 import (
-	"errors"
+	"io/fs"
+	"learn/pkg/handler"
 	"os"
-
-	"github.com/rohandas-max/grep/pkg/handler"
+	"strconv"
 )
 
-func Controller(args []string, c map[string]bool, cf map[string]int) ([]string, int, error) {
-	res := []string{}
-	switch len(args) {
-	case 1:
-		return res, 0, handler.SearchInStdin(args[0], c, cf)
-	case 2:
-		fs, err := os.Stat(args[1])
-		if err != nil {
-			return res, 0, err
+func Controller(filename, arg string, option map[string]bool) []string {
+	fs, _ := os.Stat(filename)
+	if option["i"] && option["c"] {
+		s := caseInsensitive(filename, arg, fs, option["c"])
+		if len(s) != 0 {
+			return []string{strconv.Itoa(len(s))}
 		}
-		if fs.IsDir() {
-			return handler.SearchInDir(args[1], args[0], c, cf)
-		} else if !fs.IsDir() {
-			return handler.SearchInAFile(string(args[1]), args[0], c, cf)
+	} else if option["i"] {
+		return caseInsensitive(filename, arg, fs, option["c"])
+	} else if option["c"] {
+		s := caseSensitive(filename, arg, fs, option["c"])
+		if len(s) != 0 {
+			return []string{strconv.Itoa(len(s))}
 		}
-	default:
-		return res, 0, errors.New("oops! wrong command")
+	} else {
+		return caseSensitive(filename, arg, fs, option["c"])
 	}
-	return res, 0, nil
+	return []string{}
+}
+
+func caseSensitive(filename, arg string, fs fs.FileInfo, c bool) []string {
+	if filename == "" {
+		handler.SearcInStdinCaseIns(arg, c)
+	} else if fs.IsDir() {
+		return handler.SearcInDir(filename, arg)
+	} else if !fs.IsDir() {
+		return handler.SearchInFile(filename, arg)
+	}
+	return []string{}
+}
+
+func caseInsensitive(filename, arg string, fs fs.FileInfo, c bool) []string {
+	if filename == "" {
+		handler.SearcInStdinCaseIns(arg, c)
+	} else if fs.IsDir() {
+		return handler.SearchInDirCaseIns(filename, arg)
+	} else if !fs.IsDir() {
+		return handler.SearchInFileCaseIns(filename, arg)
+	}
+	return []string{}
 }

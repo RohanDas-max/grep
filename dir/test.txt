@@ -1,3 +1,6 @@
-hello world
-Hello world2
-hello world also from test.txt
+hello
+Hello
+Welcome
+welcome
+Hello
+hello
